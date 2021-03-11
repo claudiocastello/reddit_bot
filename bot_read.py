@@ -1,11 +1,12 @@
 import praw
 
+# Create Reddit instance
 reddit = praw.Reddit('bot1')
 
+# Define the subreddit to work on
 subreddit = reddit.subreddit("FibonacciAsFuck")
 
-submission = subreddit.hot(limit=5)
-
+# Read the first five hot posts on the defined subreddit
 for submission in subreddit.hot(limit=5):
     print("Title: ", submission.title)
     print("Text: ", submission.selftext)
