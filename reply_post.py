@@ -1,4 +1,5 @@
-import praw, re, os
+#!/usr/bin/python3
+import praw, re, os, pdb
 
 # Create the Reddit instance
 reddit = praw.Reddit('bot1')
@@ -18,14 +19,14 @@ else:
 # Defeine the subreddit to work on
 subreddit = reddit.subreddit("FibonacciAsFuck")
 
-# Look the first five posts on the subreddit to reply to
+# Look for the first five posts on the subreddit to reply to
 for submission in subreddit.hot(limit=5):
     
     # If the bot didn't replied to the post
     if submission.id not in posts_replied_to:
         
         # Look for the word Fibonacci in the post titles (case insensitive)
-        if re.search('fibonacci', submission.title, re.IGNORECASE):
+        if re.search('fibonacc', submission.title, re.IGNORECASE):
            
             # If 'fibonacci' is found, reply to the post
             submission.reply('FiboBot says: Awesome Fibonacci!')
