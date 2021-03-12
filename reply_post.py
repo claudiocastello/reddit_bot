@@ -22,6 +22,10 @@ subreddit = reddit.subreddit("FibonacciAsFuck")
 # Look for the first five posts on the subreddit to reply to
 for submission in subreddit.hot(limit=5):
     
+    # Upvote every submission
+    submission.upvote()
+    print('Bot upvoting: ', submission.title)
+    
     # If the bot didn't replied to the post
     if submission.id not in posts_replied_to:
         
