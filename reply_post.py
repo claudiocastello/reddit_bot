@@ -1,5 +1,14 @@
 #!/usr/bin/python3
-import praw, re, os, pdb
+import praw, re, os, pdb, random
+
+bot_answers = [
+                'Awesome Fibonacci!',
+                'Great picture.',
+                'Yeahh, nice!',
+                'Great one!!',
+                'Amazing, keep posting!',
+                'That is fine work.'
+            ]
 
 # Create the Reddit instance
 reddit = praw.Reddit('bot1')
@@ -29,11 +38,11 @@ for submission in subreddit.hot(limit=5):
     # If the bot didn't replied to the post
     if submission.id not in posts_replied_to:
         
-        # Look for the word Fibonacci in the post titles (case insensitive)
+        # Look for the word 'fibonacc' in the post titles (case insensitive)
         if re.search('fibonacc', submission.title, re.IGNORECASE):
            
-            # If 'fibonacci' is found, reply to the post
-            submission.reply('FiboBot says: Awesome Fibonacci!')
+            # If 'fibonacc' is found, reply to the post with a random choice from the list bot_answers
+            submission.reply(random.choice(bot_answers))
             print('Bot replying to: ', submission.title)
            
             # Store the ID into the replied to list
