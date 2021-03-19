@@ -10,6 +10,13 @@ bot_answers = [
                 'That is fine work.'
             ]
 
+bot_comments = [
+                'Agreed!',
+                'Yep, agree.',
+                'Yeahh!',
+                'For sure!'
+            ]
+
 # Create the Reddit instance
 reddit = praw.Reddit('bot1')
 
@@ -43,7 +50,7 @@ for submission in subreddit.hot(limit=5):
            
             # If 'fibonacc' is found, reply to the post with a random choice from the list bot_answers
             submission.reply(random.choice(bot_answers))
-            print('Bot replying to: ', submission.title)
+            print('Bot answering to post: ', submission.title)
            
             # Store the ID into the replied to list
             posts_replied_to.append(submission.id)
@@ -52,3 +59,15 @@ for submission in subreddit.hot(limit=5):
             with open('posts_replied_to.txt', 'w') as f:
                 for post_id in posts_replied_to:
                     f.write(post_id + '\n')
+
+
+# Navigate through the stream of comments in the subreddit
+for comment in subreddit.stream.comments():
+
+    # Look for the word 'fibonacc' in the post comments (case insensitive)
+    if re.search('fibonacc', comment.body, re.IGNORECASE):
+
+        # If 'fibonacc' is found, reply to the comment with a random choice from the list bot_comments
+        bot_reply = random.choice(bot_comments)
+        comment.reply(bot_reply)
+        print('Bot replying to a comment.')
